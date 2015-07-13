@@ -1,6 +1,7 @@
 # ChronoVision
 
-[![Join the chat at https://gitter.im/jtrip/ChronoVision](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jtrip/ChronoVision?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/jtrip/ChronoVision](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jtrip/ChronoVision?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
+
 python tools for the ChronoVision project at Maker Faire Detroit 2015 from i3Detroit
 
 ## BeagleBone Black GPIO
