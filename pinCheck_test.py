@@ -2,6 +2,37 @@ import Adafruit_BBIO.GPIO as gpio
 from time import sleep
 
 
+def setup_pin_list():
+    pins = []
+    base_name = "P8_"
+    for x in range(7,20):
+        if x < 10:
+            pins.append(base_name + '0' + str(x))
+        else:
+            pins.append(base_name + str(x))
+
+    print(pins)
+    return pins
+
+
+def setPinsGPIOin(pins):
+    pinDict = {}
+    for pin in pins:
+        gpio.setup(pin, gpio.IN)
+        pinDict[str(pin)] = str(gpio.input(pin))
+    print pinDict
+
+
+def setupFallDetect(pin):
+    try:
+        gpio.add_event_detect(pin, gpio.FALLING)
+    except:
+        print('error')
+    print(pin + " : " + str(gpio.input(pin)))
+
+
+def isMoving(pin):
+    return gpio.event_detected(pin)
 
 
 def detectKnob(knob):
@@ -19,44 +50,13 @@ def detectKnob(knob):
         sleep(.1)
 
 
-def setupFallDetect(pin):
-    try:
-        gpio.add_event_detect(pin, gpio.FALLING)
-    except:
-        print('error')
-    print(pin + " : " + str(gpio.input(pin)))
-
-
-def isMoving(pin):
-    return gpio.event_detected(pin)
-
-
-def setPinsGPIOin(pins):
-    dict = {}
-    for pin in pins:
-        gpio.setup(pin, gpio.IN)
-        dict[str(pin)] = str(gpio.input(pin))
-    print dict
-    
-
-def setup_pin_list():
-    pins = []
-    base_name = "P8_"
-    for x in range(7,20):
-        if x < 10:
-            pins.append(base_name + '0' + str(x))
-        else:
-            pins.append(base_name + str(x))
-
-    print(pins)
-    return pins
-
-
 def check_all(pins):
     dict = {}
     for pin in pins:
         dict[pin] = gpio.input(pin)
     print dict
+
+
 
 
 def main():
