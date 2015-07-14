@@ -50,6 +50,23 @@ def detectKnob(knob):
         sleep(.1)
 
 
+def inv_detectknob(knob):
+    running = True
+    while running == True:
+        if isMoving(knob) != True:
+            while gpio.input(knob):
+                print('detected')
+                sleep(.1)
+        else:
+            print('checking')
+            userInput = raw_input('keep checking?')
+            if userInput == 'n':
+                running = False
+            else:
+                running = True
+        sleep(.1)
+
+
 def check_all(pins):
     dict = {}
     for pin in pins:
@@ -74,8 +91,8 @@ def main():
     else:
         exit()
 
-    detectKnob(knob)
-
+#   detectKnob(knob)
+    inv_detectknob(knob)
 
 
 if __name__ == "__main__":
