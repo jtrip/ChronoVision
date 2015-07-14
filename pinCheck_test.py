@@ -1,11 +1,11 @@
 import Adafruit_BBIO.GPIO as gpio
 from time import sleep
+from collections import OrderedDict as od
 
-
-def setup_pin_list():
+def setup_pin_list(start, stop):
     pins = []
     base_name = "P8_"
-    for x in range(7,20):
+    for x in range(start, stop):
         if x < 10:
             pins.append(base_name + '0' + str(x))
         else:
@@ -16,23 +16,30 @@ def setup_pin_list():
 
 
 def setPinsGPIOin(pins):
-    pinDict = {}
+    pinDict = od()
     for pin in pins:
         gpio.setup(pin, gpio.IN)
         pinDict[str(pin)] = str(gpio.input(pin))
     print pinDict
 
 
-def setupFallDetect(pin):
+def setupFallDetect(knob):
     try:
-        gpio.add_event_detect(pin, gpio.FALLING)
+        gpio.add_event_detect(knob, gpio.FALLING)
     except:
         print('error')
-    print(pin + " : " + str(gpio.input(pin)))
+    print(knob + " : " + str(gpio.input(knob)))
 
 
-def isMoving(pin):
-    return gpio.event_detected(pin)
+def isMoving(knob):
+    return gpio.event_detected(knob)
+
+
+def check_all(pins):
+    pinDict = od()
+    for pin in pins:
+        pinDict[pin] = gpio.input(pin)
+    print(pinDict)
 
 
 def detectKnob(knob):
@@ -50,38 +57,15 @@ def detectKnob(knob):
         sleep(.1)
 
 
-def inv_detectknob(knob):
-    running = True
-    while running == True:
-        if isMoving(knob) != True:
-            while gpio.input(knob):
-                print('detected')
-                sleep(.1)
-        else:
-            print('checking')
-            userInput = raw_input('keep checking?')
-            if userInput == 'n':
-                running = False
-            else:
-                running = True
-        sleep(.1)
-
-
-def check_all(pins):
-    dict = {}
-    for pin in pins:
-        dict[pin] = gpio.input(pin)
-    print dict
-
-
 
 
 def main():
-    knob = 'P8_10'
+    knob = 'P8_07'
 
-    pins = setup_pin_list()
+    pins = setup_pin_list(7,20)
     setPinsGPIOin(pins)
     check_all(pins)
+
     setupFallDetect(knob)
 
 
@@ -91,8 +75,7 @@ def main():
     else:
         exit()
 
-#   detectKnob(knob)
-    inv_detectknob(knob)
+    detectKnob(knob)
 
 
 if __name__ == "__main__":
