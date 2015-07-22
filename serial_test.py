@@ -3,7 +3,7 @@ import serial
 
 uart.setup('UART1')
 
-ser = serial.Serial(port="/dev/tty01",baudrate=9600)
+ser = serial.Serial(port="/dev/ttyO2",baudrate=9600)
 ser.close()
 ser.open()
 

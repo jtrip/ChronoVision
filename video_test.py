@@ -5,7 +5,7 @@ import mplayer as mp
 bg = mp.Player()
 
 bg.osdlevel = 0
-bg.loadfile('videos/test.mpg')
+bg.loadfile('/home/debian/videos/test.mpg')
 bg.fullscreen=True
 
 bg.loop=20
