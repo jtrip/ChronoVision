@@ -24,12 +24,13 @@ def main():
     video = mp.Player()
     video.loadfile('/home/debian/videos/test.mpg')
     video.fullscreen = True
+    video.loop = 10  # arbitrarily 'large'
     
     timecode = 1 #do not use zero, it creates a pause
     
     # time in seconds, where there is static I want to use
-    staticStart = [1,7,10,14,20]
-    staticLength = [3,4,10,7,9] # corresponding length of each static clip
+    staticStart = [1,70,100,140,200]
+    staticLength = [3,4,8,7,9] # corresponding length of each static clip
     
     # outter most loop, keep service running
     while running:
@@ -37,6 +38,7 @@ def main():
         # just play
         
         # respond to input
+        knobMoving = checkKnob()
         while knobMoving == True:
             knobChoice = randint(0,4) # so I can use this to correlate staticStart and staticLength
             video.time_pos = staticStart[knobChoice]
@@ -46,7 +48,7 @@ def main():
             if knobMoving == False:
                 video.time_pos = knobTime() 
                 break
-            someTime = randint(2,staticLength[knobChoice])
+            someTime = randint(2,staticLength[knobChoice]-1)
             sleep(someTime)
             knobMoving = checkKnob()
             if knobMoving == False:
@@ -59,6 +61,8 @@ def main():
             running = False
         elif keepRunning == 't':
             knobMoving = True
+    
+        sleep(0.25)
     
     print('end')
 
