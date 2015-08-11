@@ -1,18 +1,19 @@
 import Adafruit_BBIO.GPIO as GPIO
+import Adafruit_BBIO.ADC as ADC
 import mplayer as mp
 from time import sleep
 from random import randint
+from math import floor
 
 
-def knobTime():
-    return 1 # needs to be replaced by time data GPIO or Serial
-
-def checkKnob():
-    return randint(0,1) # needs to be replaced by GPIO data
+def checkKnob(potPin):
+    # LOL return randint(0,1) # needs to be replaced by GPIO data
+    value = ADC.read(potPin)
+    return floor(24 * value)
 
 def main():
     print('start')
-
+    potPin = "P9_33"
     running = True
 
 
@@ -30,7 +31,7 @@ def main():
     
     # time in seconds, where there is static I want to use
     staticStart = [1,70,100,140,200]
-    staticLength = [3,4,8,7,9] # corresponding length of each static clip
+    staticLength = [10,10,9,9,9] # corresponding length of each static clip
     
     # outter most loop, keep service running
     while running:

@@ -4,14 +4,10 @@ from collections import OrderedDict as od
 
 def setup_pin_list(start, stop):
     pins = []
-    base_name = "P8_"
-    for x in range(start, stop):
-        if x < 10:
-            pins.append(base_name + '0' + str(x))
-        else:
-            pins.append(base_name + str(x))
-
+    pins = ['P9_14', 'P9_16', 'P8_08', 'P8_09', 'P8_11', 'P8_12', 'P8_13', 'P8_14', 'P8_15', 'P8_16', 'P8_17']
     print(pins)
+
+    
     return pins
 
 
